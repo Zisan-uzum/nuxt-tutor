@@ -1,40 +1,20 @@
-<template>
-    <h1>this is an index</h1>
-    <div>{{ messages }}</div>
-    <form @submit.prevent="sendMessage">
-        <input type="text" v-model="messageText" />
-        <button type="submit">click send</button>
-    </form>
-</template>
 <script setup lang="ts">
-
-// Access the runtimeConfig using useContext
-
-// Access the OpenAI secret key from runtimeConfig
-
-
-const messageText = ref<string>('')
-const messages = ref([
-    { role: "assistant", content: "Hello, how can I help you" },
-    { role: "assistant", content: "You can ask about italian cuisine" }
-])
-
-async function sendMessage() {
-
-    messages.value = [...messages.value, { role: "user", content: messageText.value }]
-
-    try {
-        await $fetch("/api/sendMessage", {
-            method: "POST",
-            body: { messages: messages.value }
-        }).then(res => {
-            console.log(res.message);
-        })
-
-    } catch (error) {
-        console.log("error is", error)
+const userLogout = async () => {
+    await useAuth().logout();
+};
+watchEffect(() => {
+    if (!useAuth().isAuthenticated) {
+        return navigateTo('/login');
     }
-
-    console.log("after returning")
-}
+});
 </script>
+
+<template>
+    <!-- why I cannot use slots here? imported components inside nested templates doesnt seem as imported? -->
+    <div class="flex flex-row">
+        <SidebarLeft class="w-1/6" />
+        <SidebarMain class="w-4/6" />
+        <SidebarRight class="mr-6 mt-4 w-1/6" />
+        <button class="btn" @click="userLogout">logout</button>
+    </div>
+</template>
