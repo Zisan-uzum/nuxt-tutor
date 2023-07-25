@@ -1,9 +1,11 @@
 <script setup lang="ts">
+const { isAuthenticated } = useAuth()
 const userLogout = async () => {
     await useAuth().logout();
 };
 watchEffect(() => {
-    if (!useAuth().isAuthenticated) {
+    console.log()
+    if (!isAuthenticated.value) {
         return navigateTo('/login');
     }
 });

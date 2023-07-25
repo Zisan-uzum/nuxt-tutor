@@ -23,9 +23,10 @@ function handleSendInfo(payload: UserCredentials) {
     userLogin()
 }
 
+const { isAuthenticated } = useAuth()
+
 watchEffect(() => {
-    if (useAuth().isAuthenticated) {
-        console.log('inside watch effect')
+    if (isAuthenticated.value) {
         return navigateTo('/');
     }
 });
