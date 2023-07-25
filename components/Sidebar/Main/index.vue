@@ -8,7 +8,7 @@
 </template>
 
 <script setup>
-import FeedComponent from './FeedComponent.vue';
+import FeedComponent from './feedComponent.vue';
 import CreateRecipe from './createRecipe.vue';
 
 

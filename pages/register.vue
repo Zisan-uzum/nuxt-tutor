@@ -21,10 +21,11 @@ function handleSendInfo(payload: UserCredentials) {
 }
 
 watchEffect(() => {
-    if (useAuth().isAuthenticated) {
-        return navigateTo('/');
+    if (useAuth().isAuthenticated.value) {
+        return navigateTo('/')
     }
 });
+
 
 const userRegister = async () => {
     try {
