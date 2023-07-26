@@ -2,26 +2,24 @@
 import { getAnswer } from '@/repositories/chat'
 import { useSystemMessage } from "@/composables/systemMessage";
 import { chatMessage } from 'types/chat'
-
+import { useCuisinesStore } from '@/stores/cuisines'
 
 const messageText = ref<string>('')
 const answer = ref<string>('');
 
 const route = useRoute()
 
-const systemMessage = useSystemMessage(route.params.cuisineName as string).systemObject
+const { selectedCuisineIndex, messages } = useSystemMessage(route.params.cuisineName as string)
 
-const assistantMessage = useSystemMessage(route.params.cuisineName as string).assistantObject
-
-const messages = ref<chatMessage[]>([systemMessage.value, assistantMessage.value])
+const store = useCuisinesStore()
 
 async function sendMessage() {
 
-    messages.value = [...messages.value, { role: "user", content: messageText.value }]
+    store.cuisineList[selectedCuisineIndex].messages = [...messages.value, { role: "user", content: messageText.value }]
 
     messageText.value = ''
 
-    const stream = await getAnswer({ messages: messages.value })
+    const stream = await getAnswer({ messages: store.cuisineList[selectedCuisineIndex].messages })
 
     useChatStream({
         stream,
@@ -29,7 +27,8 @@ async function sendMessage() {
             answer.value += data;
         },
         onReady: () => {
-            messages.value = [...messages.value, { role: "assistant", content: answer.value }];
+            // messages.value = [...messages.value, { role: "assistant", content: answer.value }];
+            store.cuisineList[selectedCuisineIndex].messages.push({ role: "assistant", content: answer.value })
             answer.value = '';
         },
     });

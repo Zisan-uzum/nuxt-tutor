@@ -4,5 +4,5 @@ export interface Cuisine {
     name: string
     systemMessage?: string
     assistantMessage?: string
-    messages?: chatMessage[]
+    messages: chatMessage[]
 }
