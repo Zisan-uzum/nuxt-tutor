@@ -36,7 +36,8 @@
 
                 <li>
                     <!-- change props afterward -->
-                    <TabComponent route="/cuisineTutor">
+
+                    <TabComponent route="/cuisines">
                         <template v-slot:icon>
                             <ChatBubbleLeftRightIcon />
                         </template>

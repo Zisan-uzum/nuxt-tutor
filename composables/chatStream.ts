@@ -32,8 +32,6 @@ export const useChatStream = ({
     stream,
 }: any) => {
     const data = ref("");
-
-    console.log()
     resolveStream({
         data,
         onChunk,

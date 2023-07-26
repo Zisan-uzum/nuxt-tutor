@@ -1,11 +1,19 @@
 <script setup lang="ts">
 import { getAnswer } from '@/repositories/chat'
+import { useSystemMessage } from "@/composables/systemMessage";
+import { chatMessage } from 'types/chat'
+
+
 const messageText = ref<string>('')
 const answer = ref<string>('');
-const messages = ref([
-    { role: "assistant", content: "Hello, how can I help you" },
-    { role: "assistant", content: "You can ask about italian cuisine" }
-])
+
+const route = useRoute()
+
+const systemMessage = useSystemMessage(route.params.cuisineName as string).systemObject
+
+const assistantMessage = useSystemMessage(route.params.cuisineName as string).assistantObject
+
+const messages = ref<chatMessage[]>([systemMessage.value, assistantMessage.value])
 
 async function sendMessage() {
 
@@ -29,7 +37,6 @@ async function sendMessage() {
 }
 </script>
 <template>
-    <!-- <div>{{ messages }}</div> -->
     <div v-for="message in messages">
         <div class="chat chat-start" v-if='message.role === "assistant"'>
             <div class="chat-bubble">{{ message.content }}</div>
