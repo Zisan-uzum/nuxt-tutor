@@ -1,9 +1,34 @@
+<script setup lang="ts">
+import { UserCredentials } from 'types/auth';
+import { usePhotosStore } from "@/stores/photos";
+
+const photosStore = usePhotosStore()
+
+
+const info = ref<UserCredentials>({
+    email: '',
+    password: ''
+})
+
+defineProps<{
+    buttonField: string
+    userExists?: boolean
+}>()
+
+const emit = defineEmits<{
+    (e: 'sendInfo', payload: UserCredentials): void
+}>()
+
+function handleEmit() {
+    emit('sendInfo', info.value)
+}
+</script>
+
 <template>
-    <div class="flex flex-row ">
-        <img src="https://clipground.com/images/chef-png-cartoon-8.jpg" class="w-1/4 h-screen" />
+    <div class="flex justify-center">
+        <img :src="photosStore.authPagePhotos[0]" alt="Unsplash Photo" />
 
-
-        <div class="flex justify-center items-center w-3/4">
+        <div class="flex justify-center items-center flex-1 px-4 sm:px-6 lg:px-8">
             <div class="w-full max-w-md">
                 <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" @submit.prevent="handleEmit">
                     <div class="mb-4">
@@ -27,8 +52,8 @@
                         <button class="btn" type="submit">
                             {{ buttonField }}
                         </button>
-                        <p v-if="userExists" @click="() => navigateTo('/register')" class="cursor-pointer font-semibold">You
-                            dont
+                        <p v-if="userExists" @click="() => navigateTo('/register')" class="cursor-pointer font-semibold">If
+                            you dont
                             have an
                             account then register babe
                         </p>
@@ -39,7 +64,7 @@
                     </div>
                 </form>
                 <p class="text-center text-gray-500 text-xs">
-                    &copy;2020 Acme Corp. All rights reserved.
+                    &copy;2023 ChefInside. All rights reserved.
                 </p>
             </div>
         </div>
@@ -47,25 +72,3 @@
 
     </div>
 </template>
-<script setup lang="ts">
-import { UserCredentials } from 'types/auth';
-
-
-const info = ref<UserCredentials>({
-    email: '',
-    password: ''
-})
-
-defineProps<{
-    buttonField: string
-    userExists?: boolean
-}>()
-
-const emit = defineEmits<{
-    (e: 'sendInfo', payload: UserCredentials): void
-}>()
-
-function handleEmit() {
-    emit('sendInfo', info.value)
-}
-</script>

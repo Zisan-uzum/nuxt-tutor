@@ -6,7 +6,10 @@ export default defineNuxtConfig({
       secretKey: process.env.NUXT_OPEN_AI_SECRET_KEY
     },
     supabaseUrl: process.env.SUPABASE_URL,
-    supabaseKey: process.env.SUPABASE_KEY
+    supabaseKey: process.env.SUPABASE_KEY,
+    public: {
+      unsplash: process.env.UNSPLASH_ACCESS_KEY
+    }
   },
   devtools: { enabled: true },
 

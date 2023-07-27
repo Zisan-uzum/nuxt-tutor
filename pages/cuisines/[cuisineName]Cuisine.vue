@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { getAnswer } from '@/repositories/chat'
 import { useSystemMessage } from "@/composables/systemMessage";
-import { chatMessage } from 'types/chat'
 import { useCuisinesStore } from '@/stores/cuisines'
 
 const messageText = ref<string>('')
@@ -15,6 +14,8 @@ const store = useCuisinesStore()
 
 async function sendMessage() {
 
+    //convert computed while altering the array
+
     store.cuisineList[selectedCuisineIndex].messages = [...messages.value, { role: "user", content: messageText.value }]
 
     messageText.value = ''
@@ -27,7 +28,6 @@ async function sendMessage() {
             answer.value += data;
         },
         onReady: () => {
-            // messages.value = [...messages.value, { role: "assistant", content: answer.value }];
             store.cuisineList[selectedCuisineIndex].messages.push({ role: "assistant", content: answer.value })
             answer.value = '';
         },

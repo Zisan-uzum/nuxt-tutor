@@ -5,11 +5,9 @@
 <script setup lang="ts">
 import { UserCredentials } from 'types/auth';
 
-// import { createClient } from '@supabase/supabase-js'
-
-// const config = useRuntimeConfig()
-// // Create a single supabase client for interacting with your database
-// const supabase = createClient(config.supabaseUrl, config.supabaseKey)
+definePageMeta({
+    layout: "default"
+})
 
 const info = ref<UserCredentials>({
     email: '',
