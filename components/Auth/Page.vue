@@ -3,8 +3,7 @@ import { UserCredentials } from 'types/auth';
 import { usePhotosStore } from "@/stores/photos";
 
 const photosStore = usePhotosStore()
-
-
+console.log(photosStore.authPagePhotos[0]['regular'])
 const info = ref<UserCredentials>({
     email: '',
     password: ''
@@ -26,7 +25,7 @@ function handleEmit() {
 
 <template>
     <div class="flex justify-center">
-        <img :src="photosStore.authPagePhotos[0]" alt="Unsplash Photo" />
+        <img :src="photosStore.authPagePhotos[0]['regular']" alt="Unsplash Photo" class="h-screen" />
 
         <div class="flex justify-center items-center flex-1 px-4 sm:px-6 lg:px-8">
             <div class="w-full max-w-md">

@@ -1,11 +1,12 @@
 import { defineStore } from "pinia";
-import { photoLinks } from "types/photos";
+import { photoLinks, photoFetchUrls } from "types/photos";
 
 
 export const usePhotosStore = defineStore('photos', () => {
 
-    const photoFetchList: photoLinks = {
-        authPagePhotoLinks: ["https://api.unsplash.com/photos/vA1L1jRTM70"]
+    const photoFetchList: photoFetchUrls = {
+        // authPagePhotoFetchUrls: ["https://api.unsplash.com/photos/vA1L1jRTM70"]
+        authPagePhotoFetchUrls: ["https://api.unsplash.com/photos/atzWFItRHy8"]
     }
 
     const photoLinks: photoLinks = reactive({
@@ -14,7 +15,7 @@ export const usePhotosStore = defineStore('photos', () => {
 
     const authPagePhotos = computed(() => {
         if (photoLinks.authPagePhotoLinks.length === 0) {
-            fetchAuthPagePhotos(photoFetchList.authPagePhotoLinks, "authPagePhotoLinks")
+            fetchAuthPagePhotos(photoFetchList.authPagePhotoFetchUrls)
                 .then((data) => {
                     if (data !== undefined) {
                         photoLinks.authPagePhotoLinks = data;
