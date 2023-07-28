@@ -13,9 +13,10 @@ export const usePhotosStore = defineStore('photos', () => {
         authPagePhotoLinks: []
     })
 
-    const authPagePhotos = computed(() => {
+    //would prefer computed but sometimes it returns undefined I coudnt find
+    const authPagePhotos = async () => {
         if (photoLinks.authPagePhotoLinks.length === 0) {
-            fetchAuthPagePhotos(photoFetchList.authPagePhotoFetchUrls)
+            await fetchAuthPagePhotos(photoFetchList.authPagePhotoFetchUrls)
                 .then((data) => {
                     if (data !== undefined) {
                         photoLinks.authPagePhotoLinks = data;
@@ -27,7 +28,7 @@ export const usePhotosStore = defineStore('photos', () => {
         }
         return photoLinks.authPagePhotoLinks
 
-    })
+    }
     return {
         photoFetchList, photoLinks, authPagePhotos
     }

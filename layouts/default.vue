@@ -1,5 +1,5 @@
 <template>
-    <div class="">
+    <div>
         <!-- <img src="https://bxepafvlfghczbkkrern.supabase.co/storage/v1/object/sign/loginpage/default-monochrome.svg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJsb2dpbnBhZ2UvZGVmYXVsdC1tb25vY2hyb21lLnN2ZyIsImlhdCI6MTY5MDQwODI0MiwiZXhwIjoxNzIxOTQ0MjQyfQ.MTecBBQboAe6FdkwcR1ikca9B0DZXRwEThlnWEH7fjw&t=2023-07-26T21%3A50%3A42.202Z"
             class="w-96 h-96" /> -->
         <div class="bg-[cornSilk] h-10">
