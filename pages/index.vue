@@ -1,4 +1,5 @@
 <script setup lang="ts">
+
 const userLogout = async () => {
     await useAuth().logout();
 };
@@ -8,6 +9,8 @@ watchEffect(() => {
         return navigateTo('/login')
     }
 });
+
+console.log(useAuth().user.value?.id)
 </script>
 
 <template>

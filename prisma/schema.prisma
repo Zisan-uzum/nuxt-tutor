@@ -1,0 +1,26 @@
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model User {
+    id       String    @unique
+    chefbots ChefBot[]
+
+    @@index([id])
+}
+
+model ChefBot {
+    id        Int      @id @default(autoincrement())
+    createdAt DateTime @default(now())
+    title     String
+    User      User?    @relation(fields: [userId], references: [id])
+    userId    String
+    messages  Json[]
+
+    @@index([userId])
+}

@@ -4,6 +4,7 @@ export const useAuth = () => {
     const user = useSupabaseUser()
     const client = useSupabaseAuthClient()
 
+
     const isAuthenticated = computed(() => {
         return user.value !== null
     })
@@ -20,7 +21,17 @@ export const useAuth = () => {
     }
 
     async function register(credentials: UserCredentials) {
-        const { error } = await client.auth.signUp(credentials)
+        const { data, error } = await client.auth.signUp(credentials)
+        try {
+            await fetch('/api/user', {
+                method: "POST",
+                body: JSON.stringify({
+                    id: data.user?.id
+                }),
+            })
+        } catch (error) {
+            console.log("while creating user inside prisma", error)
+        }
         if (error) throw error
     }
 

@@ -1,17 +1,33 @@
 <script setup lang="ts">
 import { getAnswer } from '@/repositories/chat'
 import { useSystemMessage } from "@/composables/systemMessage";
+import { useCuisines } from '@/composables/cuisines';
 import { useCuisinesStore } from '@/stores/cuisines'
+import { useAuth } from "@/composables/auth"
+import { chatMessage } from 'types/chat';
 
 const messageText = ref<string>('')
 const answer = ref<string>('');
+const usefetchedMessages = ref<chatMessage[]>()
 
 const route = useRoute()
 
-const { selectedCuisineIndex, messages } = useSystemMessage(route.params.cuisineName as string)
-
 const store = useCuisinesStore()
 
+const { selectedCuisineIndex, messages } = useSystemMessage(route.params.cuisineName as string)
+const { updateMessages, fetchMessages } = useCuisines()
+
+//fix afterward because we sure userid exists if it is login
+
+//also always give error for pinia getactivepinia?
+
+
+async function setFetchedMessages() {
+
+    const response = await fetchMessages({ userId: useAuth().user.value?.id as string, chefBotTitle: store.cuisineList[selectedCuisineIndex].name })
+
+    usefetchedMessages.value = response.messages
+}
 async function sendMessage() {
 
     //convert computed while altering the array
@@ -33,10 +49,13 @@ async function sendMessage() {
         },
     });
 
+    await updateMessages({ messages: store.cuisineList[selectedCuisineIndex].messages, userId: useAuth().user.value?.id as string, title: store.cuisineList[selectedCuisineIndex].name })
 }
+
+setFetchedMessages()
 </script>
 <template>
-    <div v-for="message in messages">
+    <div v-for="message in usefetchedMessages">
         <div class="chat chat-start" v-if='message.role === "assistant"'>
             <div class="chat-bubble">{{ message.content }}</div>
         </div>
