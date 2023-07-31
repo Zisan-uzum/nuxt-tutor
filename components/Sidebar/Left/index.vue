@@ -1,3 +1,6 @@
+<script setup>
+import { HomeIcon, ListBulletIcon, BookmarkIcon, UserCircleIcon, ChatBubbleLeftRightIcon } from '@heroicons/vue/24/solid'
+</script>
 <template>
     <div class="drawer lg:drawer-open">
         <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
@@ -12,50 +15,50 @@
             <label for="my-drawer-2" class="drawer-overlay"></label>
             <ul class="menu p-4 w-80 h-full bg-base-200 text-base-content">
                 <li>
-                    <TabComponent route="/">
+                    <SidebarLeftTabComponent route="/">
                         <template v-slot:icon>
                             <HomeIcon />
                         </template>
                         <template v-slot:name>
                             Home
                         </template>
-                    </TabComponent>
+                    </SidebarLeftTabComponent>
                 </li>
 
                 <li>
                     <!-- change props afterward -->
-                    <TabComponent route="/">
+                    <SidebarLeftTabComponent route="/">
                         <template v-slot:icon>
                             <BookmarkIcon />
                         </template>
                         <template v-slot:name>
                             Favorite Recipes
                         </template>
-                    </TabComponent>
+                    </SidebarLeftTabComponent>
                 </li>
 
                 <li>
                     <!-- change props afterward -->
 
-                    <TabComponent route="/cuisines">
+                    <SidebarLeftTabComponent route="/cuisines">
                         <template v-slot:icon>
                             <ChatBubbleLeftRightIcon />
                         </template>
                         <template v-slot:name>
                             Meet Tutors
                         </template>
-                    </TabComponent>
+                    </SidebarLeftTabComponent>
                 </li>
 
                 <li>
-                    <TabComponent route="/">
+                    <SidebarLeftTabComponent route="/">
                         <template v-slot:icon>
                             <UserCircleIcon />
                         </template>
                         <template v-slot:name>
                             Profile
                         </template>
-                    </TabComponent>
+                    </SidebarLeftTabComponent>
                 </li>
 
                 <li>
@@ -68,7 +71,3 @@
         </div>
     </div>
 </template>
-<script setup>
-import { HomeIcon, ListBulletIcon, BookmarkIcon, UserCircleIcon, ChatBubbleLeftRightIcon } from '@heroicons/vue/24/solid'
-import TabComponent from '@/components/Sidebar/Left/tabComponent.vue'
-</script>

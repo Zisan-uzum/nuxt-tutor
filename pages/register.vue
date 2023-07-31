@@ -1,12 +1,7 @@
-<template>
-    <AuthPage buttonField="Register" @sendInfo="handleSendInfo" />
-    <div v-if="errorMsg.length > 0">
-        <h1>{{ errorMsg }}</h1>
-    </div>
-</template>
-
 <script setup lang="ts">
 import { UserCredentials } from 'types/auth';
+
+
 
 const info = ref<UserCredentials>({
     email: '',
@@ -27,6 +22,7 @@ watchEffect(() => {
 });
 
 
+
 const userRegister = async () => {
     try {
         console.log(info.value.email, info.value.password)
@@ -40,3 +36,11 @@ const userRegister = async () => {
 };
 
 </script>
+
+<template>
+    <AuthPage buttonField="Register" @sendInfo="handleSendInfo" />
+    <div v-if="errorMsg.length > 0">
+        <h1>{{ errorMsg }}</h1>
+    </div>
+</template>
+

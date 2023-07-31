@@ -32,7 +32,6 @@ export const findChefBotId = async (userId: string, chefBotTitle: string) => {
             title: chefBotTitle
         }
     })
-
     return find
 
 }
@@ -44,8 +43,9 @@ export const updateCuisineMessages = async (messages: any, userId: string, chefB
         if (foundBot) {
             const updateBot = await prisma.chefBot.update({
                 where: {
-                    id: foundBot.id
+                    id: foundBot.id,
                 },
+
                 data: {
                     messages: messages
                 }

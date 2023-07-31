@@ -1,3 +1,12 @@
+<script setup lang="ts">
+
+enum dietTypes {
+    GLUTENFREE = 'Gluten Free',
+    VEGAN = 'Vegan',
+    VEGETARIAN = 'Vegetarian',
+    NONSUGAR = 'No Sugar'
+}
+</script>
 <template>
     <div class="flex flex-col">
 
@@ -10,12 +19,3 @@
     </div>
 </template>
 
-<script setup lang="ts">
-
-enum dietTypes {
-    GLUTENFREE = 'Gluten Free',
-    VEGAN = 'Vegan',
-    VEGETARIAN = 'Vegetarian',
-    NONSUGAR = 'No Sugar'
-}
-</script>

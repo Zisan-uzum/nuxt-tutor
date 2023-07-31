@@ -1,4 +1,3 @@
-// import { fetchMessages } from "../../../db/cuisines"
 
 import { fetchMessages } from "../../../db/cuisines"
 import { parse } from 'url';

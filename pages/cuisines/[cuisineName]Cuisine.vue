@@ -2,57 +2,51 @@
 import { getAnswer } from '@/repositories/chat'
 import { useSystemMessage } from "@/composables/systemMessage";
 import { useCuisines } from '@/composables/cuisines';
-import { useCuisinesStore } from '@/stores/cuisines'
 import { useAuth } from "@/composables/auth"
 import { chatMessage } from 'types/chat';
 
+definePageMeta({
+    middleware: "auth"
+})
+
 const messageText = ref<string>('')
 const answer = ref<string>('');
-const usefetchedMessages = ref<chatMessage[]>()
+
+const usefetchedMessages = ref<chatMessage[]>([])
 
 const route = useRoute()
 
-const store = useCuisinesStore()
-
-const { selectedCuisineIndex, messages } = useSystemMessage(route.params.cuisineName as string)
+const { messages } = useSystemMessage(route.params.cuisineName as string)
 const { updateMessages, fetchMessages } = useCuisines()
 
-//fix afterward because we sure userid exists if it is login
+const cuisineName = route.params.cuisineName as string
+const response = await fetchMessages({ userId: useAuth().user.value?.id as string, chefBotTitle: cuisineName })
+usefetchedMessages.value = response.messages
 
-//also always give error for pinia getactivepinia?
-
-
-async function setFetchedMessages() {
-
-    const response = await fetchMessages({ userId: useAuth().user.value?.id as string, chefBotTitle: store.cuisineList[selectedCuisineIndex].name })
-
-    usefetchedMessages.value = response.messages
-}
 async function sendMessage() {
-
-    //convert computed while altering the array
-
-    store.cuisineList[selectedCuisineIndex].messages = [...messages.value, { role: "user", content: messageText.value }]
-
+    if (usefetchedMessages.value.length > 0) {
+        usefetchedMessages.value.push({ role: "user", content: messageText.value })
+    }
+    else {
+        usefetchedMessages.value = [...messages.value, { role: "user", content: messageText.value }]
+    }
     messageText.value = ''
-
-    const stream = await getAnswer({ messages: store.cuisineList[selectedCuisineIndex].messages })
-
+    const stream = await getAnswer({ messages: usefetchedMessages.value })
+    console.log("stream is ", stream)
     useChatStream({
         stream,
         onChunk: ({ data }: any) => {
             answer.value += data;
         },
         onReady: () => {
-            store.cuisineList[selectedCuisineIndex].messages.push({ role: "assistant", content: answer.value })
+            usefetchedMessages.value.push({ role: "assistant", content: answer.value })
+
             answer.value = '';
         },
     });
-
-    await updateMessages({ messages: store.cuisineList[selectedCuisineIndex].messages, userId: useAuth().user.value?.id as string, title: store.cuisineList[selectedCuisineIndex].name })
+    await updateMessages({ messages: usefetchedMessages.value, userId: useAuth().user.value?.id as string, title: cuisineName })
 }
 
-setFetchedMessages()
 </script>
 <template>
     <div v-for="message in usefetchedMessages">

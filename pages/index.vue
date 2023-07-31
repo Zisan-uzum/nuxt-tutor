@@ -3,14 +3,10 @@
 const userLogout = async () => {
     await useAuth().logout();
 };
-watchEffect(() => {
-    console.log()
-    if (!useAuth().isAuthenticated.value) {
-        return navigateTo('/login')
-    }
-});
 
-console.log(useAuth().user.value?.id)
+definePageMeta({
+    middleware: "auth"
+})
 </script>
 
 <template>

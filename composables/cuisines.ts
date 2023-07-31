@@ -1,4 +1,3 @@
-import fetchMessages from "server/api/user/cuisines/fetchMessages.get"
 import { chatMessage } from "types/chat"
 
 export const useCuisines = () => {

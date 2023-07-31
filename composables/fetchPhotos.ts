@@ -9,6 +9,5 @@ export const fetchAuthPagePhotos = async (fetchLinks: string[]) => {
     );
     const responses = await Promise.all(fetchRequests);
     const photoDataArray = await Promise.all(responses.map((response) => response.json()));
-    // photoDataArray.map((data) => console.log(data.urls))
     return photoDataArray.map((data) => { return data.urls })
 }

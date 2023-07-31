@@ -6,7 +6,7 @@
 import { UserCredentials } from 'types/auth';
 
 definePageMeta({
-    layout: "default"
+    layout: "default",
 })
 
 const info = ref<UserCredentials>({
