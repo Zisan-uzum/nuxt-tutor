@@ -8,7 +8,9 @@ import { UserCredentials } from 'types/auth';
 definePageMeta({
     layout: "default",
 })
-
+useHead({
+    title: "Login"
+})
 const info = ref<UserCredentials>({
     email: '',
     password: ''

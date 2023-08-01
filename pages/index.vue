@@ -7,6 +7,9 @@ const userLogout = async () => {
 definePageMeta({
     middleware: "auth"
 })
+useHead({
+    title: "Home"
+})
 </script>
 
 <template>

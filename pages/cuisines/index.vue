@@ -5,7 +5,9 @@ import { photoUrls } from '@/types/photos'
 definePageMeta({
     middleware: "auth"
 })
-
+useHead({
+    title: "Cuisines"
+})
 const cuisineNameList = ref<string[]>(['Italian', 'Turkish', 'German', 'American', 'Asian', 'Chinese'])
 //composables
 const { addCuisine } = useCuisines()

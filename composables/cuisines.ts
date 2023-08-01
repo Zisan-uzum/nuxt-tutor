@@ -15,6 +15,7 @@ export const useCuisines = () => {
 
     const updateMessages = async ({ messages, userId, title }: { messages: chatMessage[], userId: string, title: string }) => {
 
+        console.log("in composable side messages are", messages)
         return await fetch('/api/user/cuisines/updateMessages', {
             method: "POST",
             body: JSON.stringify({

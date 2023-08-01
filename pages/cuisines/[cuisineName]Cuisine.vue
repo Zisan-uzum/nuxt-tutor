@@ -11,16 +11,25 @@ definePageMeta({
 
 const messageText = ref<string>('')
 const answer = ref<string>('');
-
 const usefetchedMessages = ref<chatMessage[]>([])
 
 const route = useRoute()
 
+//dynamic title
+const title = computed(() => `${route.params.cuisineName}Cuisine`)
+
+useHead({
+    title: title
+})
+
+//composables
 const { messages } = useSystemMessage(route.params.cuisineName as string)
 const { updateMessages, fetchMessages } = useCuisines()
 
 const cuisineName = route.params.cuisineName as string
 const response = await fetchMessages({ userId: useAuth().user.value?.id as string, chefBotTitle: cuisineName })
+
+//set returned data from composable to ref
 usefetchedMessages.value = response.messages
 
 async function sendMessage() {

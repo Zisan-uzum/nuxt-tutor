@@ -50,6 +50,7 @@ export const updateCuisineMessages = async (messages: any, userId: string, chefB
                     messages: messages
                 }
             })
+            console.log("in db function messages are", updateBot.messages)
             return updateBot
         } else {
             throw new Error('ChefBot not found');

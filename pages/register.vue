@@ -1,6 +1,15 @@
 <script setup lang="ts">
 import { UserCredentials } from 'types/auth';
 
+useHead({
+    title: "Register"
+})
+
+watchEffect(() => {
+    if (useAuth().isAuthenticated.value) {
+        return navigateTo('/')
+    }
+});
 
 
 const info = ref<UserCredentials>({
@@ -15,11 +24,6 @@ function handleSendInfo(payload: UserCredentials) {
     userRegister()
 }
 
-watchEffect(() => {
-    if (useAuth().isAuthenticated.value) {
-        return navigateTo('/')
-    }
-});
 
 
 
