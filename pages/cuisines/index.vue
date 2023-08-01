@@ -13,12 +13,12 @@ const cuisineNameList = ref<string[]>(['Italian', 'Turkish', 'German', 'American
 const { addCuisine } = useCuisines()
 const { user } = useAuth()
 //store
-const photosStore = usePhotosStore()
-await photosStore.cuisineIndexPhotos()
+// const photosStore = usePhotosStore()
+// await photosStore.cuisineIndexPhotos()
 
-const cuisinePhotos: photoUrls[] = photosStore.photoLinks.cuisineIndexPhotoLinks
+// const cuisinePhotos: photoUrls[] = photosStore.photoLinks.cuisineIndexPhotoLinks
 
-
+//it waits so much for photos thats why I commented out 
 const handleSubmit = async (cuisineName: string) => {
     try {
         await addCuisine({ title: cuisineName, userId: user.value?.id as string })

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { UserCredentials } from 'types/auth';
-// import { usePhotosStore } from "@/stores/photos";
+import { usePhotosStore } from "@/stores/photos";
 
-// const photosStore = usePhotosStore()
-// await photosStore.authPagePhotos()
+const photosStore = usePhotosStore()
+await photosStore.authPagePhotos()
 
 const info = ref<UserCredentials>({
     email: '',
@@ -27,8 +27,8 @@ function handleEmit() {
 <template>
     <div class="flex max-w-md w-full ">
         <div class="absolute inset-0 flex items-center justify-end">
-            <!-- <img :src="photosStore.photoLinks.authPagePhotoLinks[0]['raw']" alt="Unsplash Photo"
-                class="hidden md:block fixed top-0 left-0 w-6/12 h-screen" /> -->
+            <img :src="photosStore.photoLinks.authPagePhotoLinks[0]['raw']" alt="Unsplash Photo"
+                class="hidden md:block fixed top-0 left-0 w-6/12 h-screen" />
             <div class=" z-10 max-w-md w-full p-8">
                 <div class="w-full max-w-md">
                     <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" @submit.prevent="handleEmit">

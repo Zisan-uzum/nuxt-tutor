@@ -26,13 +26,13 @@ const resolveStream = async ({
     onReady({ data: data.value });
 };
 
-export const useChatStream = ({
+export const useChatStream = async ({
     onChunk = () => { },
     onReady = () => { },
     stream,
 }: any) => {
     const data = ref("");
-    resolveStream({
+    await resolveStream({
         data,
         onChunk,
         onReady,

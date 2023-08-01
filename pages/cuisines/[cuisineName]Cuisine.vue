@@ -42,7 +42,7 @@ async function sendMessage() {
     messageText.value = ''
     const stream = await getAnswer({ messages: usefetchedMessages.value })
     console.log("stream is ", stream)
-    useChatStream({
+    await useChatStream({
         stream,
         onChunk: ({ data }: any) => {
             answer.value += data;
